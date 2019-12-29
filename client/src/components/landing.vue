@@ -59,12 +59,12 @@
               <label>Listing Period: </label>
               <select v-model="period" class="custom-select custom-select-sm" name="period">
                 <option value="1">Select Period</option>
-                <option value="2">Last 1 month</option>
-                <option >Last 6 months</option>
-                <option >Last 1 year</option>
-                <option >Last 2 years</option>
-                <option >Last 5 years</option>
-                <option >More than 5 years</option>
+                <option value="Last 1 month">Last 1 month</option>
+                <option value="Last 6 months">Last 6 months</option>
+                <option value="Last 1 year">Last 1 year</option>
+                <option value="Last 2 years">Last 2 years</option>
+                <option value="Last 5 years">Last 5 years</option>
+                <option value="More than 5 years">More than 5 years</option>
               </select>
             </div>
           </div>
@@ -72,7 +72,7 @@
   
           <button
                 @click="submit()"
-                type="submit"
+                type="button"
                  form="myForm"
                  value="Submit"
                 class="btn btn-outline-grey custom waves-effect"
@@ -110,10 +110,7 @@ export default {
       this.period = '1'
     },
     async submit (e) {
-      e.preventDefault()
-      if (this.symbol === '') {
-        alert('Type a company symbol')
-      } else if (this.period === '1') {
+      if (this.period === '1') {
         alert('select a period')
       } else {
         console.log(this.symbol, this.period)
