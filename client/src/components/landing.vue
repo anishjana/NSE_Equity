@@ -103,6 +103,25 @@ export default {
   components: {
     getResults
   },
+  // watch: {
+  //   symbol (value) {
+  //     const route = {
+  //       name: 'homepage'
+  //     }
+  //     if (this.symbol !== '') {
+  //       route.query = {
+  //         symbol: this.symbol
+  //       }
+  //     }
+  //     this.$router.push(route)
+  //   },
+  //   '$route.query.symbol': {
+  //     immediate: true,
+  //     handler (value) {
+  //       this.symbol = value
+  //     }
+  //   }
+  // },
   data () {
     return {
       symbol: '',
