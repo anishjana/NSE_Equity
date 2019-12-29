@@ -13,4 +13,5 @@ export default new Router({
       component: landing
     }
   ]
+  // base: '/api/'
 })

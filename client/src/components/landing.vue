@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-expressions */
 <!-- eslint-disable -->
 <template>
   <div>
@@ -39,7 +40,7 @@
         Listing Directory- Equity
       </div>
       <div class="card-body">
-        <form id = "myForm">
+        <form method="post" action="#" id = "myForm">
           <div class="row">
             <div class="col">
               <div class="autocomplete">
@@ -91,21 +92,28 @@
         </form>
       </div>
     </div>
+    <get-results/>
   </div>
+  
 </template>
 <script>
+import getResults from './results'
 import search from '@/services/search'
 export default {
+  components: {
+    getResults
+  },
   data () {
     return {
       symbol: '',
-      period: '1'
+      period: 'Last 1 month'
     }
   },
   methods: {
     reset () {
       // eslint-disable-next-line no-unused-expressions
       // eslint-disable-next-line no-sequences
+      // eslint-disable-next-line
       this.symbol = '',
       this.period = '1'
     },
