@@ -51,8 +51,9 @@
                 v-model="symbol"
                 id="myInput"
                 class="form-control form-control-sm"
-                placeholder="Enter symbol / name"
+                placeholder="Enter symbol only"
               />
+              <span class="info" tabindex="-1">*symbol only </span>
               </div>
             </div>
 
@@ -92,16 +93,24 @@
         </form>
       </div>
     </div>
-    <get-results/>
+    <get-results :rows="rows"/>
   </div>
   
 </template>
 <script>
+import axios from 'axios'
 import getResults from './results'
 import search from '@/services/search'
 export default {
   components: {
     getResults
+  },
+  data () {
+    return {
+      symbol: '',
+      period: 'Last 1 month',
+      rows: {}
+    }
   },
   // watch: {
   //   symbol (value) {
@@ -122,12 +131,6 @@ export default {
   //     }
   //   }
   // },
-  data () {
-    return {
-      symbol: '',
-      period: 'Last 1 month'
-    }
-  },
   methods: {
     reset () {
       // eslint-disable-next-line no-unused-expressions
@@ -146,13 +149,33 @@ export default {
           symbol: this.symbol,
           period: this.period
         })
-        console.log(params.data)
+        this.rows = params.data.rows
+        console.log(this.rows)
       }
     }
+  },
+  mounted () {
+    axios
+      .get('http://localhost:5000/results', {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        this.rows = response.data.rows
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
+
 }
 </script>
 <style scoped >
+.info{
+ font-size: 12.5px;
+ padding-left: 5px;
+}
 .search-nav{
   width: 150px !important;
 }
