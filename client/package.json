@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "cors": "^2.8.5",
     "vue": "^2.5.2",
+    "vue-a11y-dialog": "^0.5.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

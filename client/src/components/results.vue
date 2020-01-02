@@ -26,7 +26,7 @@
             <tbody>
 <!-- eslint-disable-next-line -->
             
-              <tr v-for="row in rows" :key="row.sym" class="result-row" @click="popup(row)">
+              <tr v-for="row in rows" :key="row.sym" class="result-row" @click="popup(row.sym)">
                 <th scope="col">{{ row.sym }}</th>
                 <th scope="col">{{ row.isin }}</th>
                 <th scope="col">{{ row.cmp }}</th>
@@ -45,10 +45,16 @@
 </template>
 <script>
 export default {
+  data () {
+    return {
+      sym: null,
+      item: ''
+    }
+  },
   props: ['rows'],
   methods: {
     popup (row) {
-      console.log(row.sym)
+      this.$emit('popupFromChild', row)
     }
   }
 }

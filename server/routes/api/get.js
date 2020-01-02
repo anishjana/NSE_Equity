@@ -1,6 +1,7 @@
 const express= require('express');
 const router = express.Router();
-const nse = require('./nse.js')
+const nse = require('./nse.js');
+
 
 
 router.get("/results", (req, res, next) => {
@@ -25,7 +26,27 @@ router.post("/api", (req, res, next) => {
         
       });
   });
+
+router.post("/actions", (req, res, next) => {
+  const Symbol=req.body.symbol;
+  // console.log(Symbol)
+  nse.actions(Symbol)
+      .then(function (json_response) {
+        const str = JSON.stringify(json_response.data)
+        const myObject = JSON.parse(str)
+        res.send(myObject)
+        
+      });
+  });
   
+  //   router.get("/actions", (req,res,next) => {
+  //     nse.actions()
+  //     .then(function (myObject) {
+  //       res.send(myObject.data.rows);
+  //     });
+  // });
+
+
 
 
 module.exports = router;

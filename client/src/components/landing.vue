@@ -93,7 +93,7 @@
         </form>
       </div>
     </div>
-    <get-results :rows="rows"/>
+    <get-results :rows="rows" @popupFromChild="handlePopup"/>
   </div>
   
 </template>
@@ -101,6 +101,7 @@
 import axios from 'axios'
 import getResults from './results'
 import search from '@/services/search'
+import action from '@/services/action'
 export default {
   components: {
     getResults
@@ -109,7 +110,12 @@ export default {
     return {
       symbol: '',
       period: 'Last 1 month',
-      rows: {}
+      rows: {},
+      dialog: null,
+      sym: '',
+      compInfo: '',
+      announce: '',
+      actions: {}
     }
   },
   // watch: {
@@ -150,8 +156,29 @@ export default {
           period: this.period
         })
         this.rows = params.data.rows
-        console.log(this.rows)
       }
+    },
+    assignDialogReference (dialog) {
+      this.dialog = dialog
+    },
+
+    openDialogFromPage () {
+      if (this.dialog) {
+        this.dialog.show()
+      }
+    },
+    handlePopup (value) {
+      this.sym = value
+      this.getCorpActions(this.sym)
+    },
+    async getCorpActions (sym) {
+      console.log(sym)
+      const corpActions = await action.action({
+        symbol: sym
+      })
+      this.actions = corpActions
+      console.log(this.actions.data.rows)
+      this.openDialogFromPage()
     }
   },
   mounted () {

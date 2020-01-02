@@ -24,10 +24,27 @@ function getListComp(Symbol,Period) {
     });
   }
 
+  function actions(Symbol) {
+    let url_action = `https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/companySnapshot/getCorporateActions${Symbol}.json`
+    console.log(url_action)
+    return axios.get(url_action, {
+      headers: {
+        // Referer: 'https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/GetQuote.jsp?symbol=INFY&illiquid=0&smeFlag=0&itpFlag=0',
+        'X-Requested-With': 'XMLHttpRequest',
+        Host: 'www.nseindia.com',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    }).catch(errors => {
+      console.log(errors)
+    })
+  }
+  
 
 var nse = {
       getResults: getResults,
-      getListComp: getListComp
+      getListComp: getListComp,
+      actions: actions
   }
 
   module.exports = nse;

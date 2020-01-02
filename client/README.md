@@ -2,6 +2,13 @@
 
 > NSE CLient
 
+
+
+https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/companySnapshot/getAnnouncementsINFY.json
+
+https://www1.nseindia.com/marketinfo/companyTracker/compInfo.jsp?symbol=INFY&series=EQ
+
+https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/companySnapshot/getCorporateActionsINFY.json
 ## Build Setup
 
 ``` bash
