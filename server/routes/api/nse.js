@@ -40,11 +40,41 @@ function getListComp(Symbol,Period) {
     })
   }
   
+  function announces(Symbol) {
+    let url_announce = `https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/companySnapshot/getAnnouncements${Symbol}.json`
+    return axios.get(url_announce, {
+      headers: {
+        // Referer: 'https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/GetQuote.jsp?symbol=INFY&illiquid=0&smeFlag=0&itpFlag=0',
+        'X-Requested-With': 'XMLHttpRequest',
+        Host: 'www.nseindia.com',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    }).catch(errors => {
+      console.log(errors)
+    })
+  }
+
+  function corpinfo() {
+    let url_info = `https://www1.nseindia.com/marketinfo/companyTracker/compInfo.jsp?symbol=INFY&series=EQ`
+    return axios.get(url_info, {
+      headers: {
+        Host: 'www1.nseindia.com',
+        'Content-Type': 'text/html;charset=ISO-8859-1',
+        'Access-Control-Allow-Origin': '*'
+      }
+    }).catch(errors => {
+      console.log(errors)
+    })
+  }
+  
 
 var nse = {
       getResults: getResults,
       getListComp: getListComp,
-      actions: actions
+      actions: actions,
+      announces: announces,
+      corpinfo: corpinfo
   }
 
   module.exports = nse;

@@ -1,7 +1,7 @@
 const express= require('express');
 const router = express.Router();
 const nse = require('./nse.js');
-
+const axios = require('axios');
 
 
 router.get("/results", (req, res, next) => {
@@ -38,6 +38,19 @@ router.post("/actions", (req, res, next) => {
         
       });
   });
+  
+router.post("/announce", (req, res, next) => {
+  const Symbol=req.body.symbol;
+  // console.log(Symbol)
+  nse.announces(Symbol)
+      .then(function (json_response) {
+        const str = JSON.stringify(json_response.data)
+        const myObject = JSON.parse(str)
+        res.send(myObject)
+        
+      });
+  });
+
   
   //   router.get("/actions", (req,res,next) => {
   //     nse.actions()

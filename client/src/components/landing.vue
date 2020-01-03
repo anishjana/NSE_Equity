@@ -93,18 +93,27 @@
         </form>
       </div>
     </div>
+    <loading :active.sync="visible" :can-cancel="true"></loading>
     <get-results :rows="rows" @popupFromChild="handlePopup"/>
+    <pop :id="actions.id" :actions="actions" :announces="announces"/>
   </div>
   
 </template>
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 import axios from 'axios'
 import getResults from './results'
+import pop from './popup'
 import search from '@/services/search'
 import action from '@/services/action'
+import announce from '@/services/announce'
+// import corpinfo from '@/services/corpinfo'
 export default {
   components: {
-    getResults
+    getResults,
+    pop,
+    Loading
   },
   data () {
     return {
@@ -115,7 +124,12 @@ export default {
       sym: '',
       compInfo: '',
       announce: '',
-      actions: {}
+      actions: {},
+      announces: {},
+      visible: false,
+      loaded: true
+      // corpinfos: ''
+
     }
   },
   // watch: {
@@ -155,30 +169,40 @@ export default {
           symbol: this.symbol,
           period: this.period
         })
+        this.open()
         this.rows = params.data.rows
-      }
-    },
-    assignDialogReference (dialog) {
-      this.dialog = dialog
-    },
-
-    openDialogFromPage () {
-      if (this.dialog) {
-        this.dialog.show()
       }
     },
     handlePopup (value) {
       this.sym = value
       this.getCorpActions(this.sym)
+      this.getCorpAnnounce(this.sym)
+      // this.getCorpInfo(this.sym)
     },
     async getCorpActions (sym) {
-      console.log(sym)
+      this.$root.$emit('showPop')
       const corpActions = await action.action({
         symbol: sym
       })
-      this.actions = corpActions
-      console.log(this.actions.data.rows)
-      this.openDialogFromPage()
+      this.actions = corpActions.data.rows
+    },
+    async getCorpAnnounce (sym) {
+      const corpAnnounce = await announce.announce({
+        symbol: sym
+      })
+      this.announces = corpAnnounce.data.rows
+    },
+    // async getCorpInfo (sym) {
+    //   const corpinf = await corpinfo.corpinfo({
+    //     symbol: sym
+    //   })
+    //   this.corpinfos = corpinf
+    // },
+    open () {
+      this.visible = true
+      setTimeout(() => {
+        this.visible = false
+      }, 500)
     }
   },
   mounted () {
