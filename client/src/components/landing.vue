@@ -180,7 +180,6 @@ export default {
       this.getCorpActions(this.sym)
       this.getCorpAnnounce(this.sym)
       this.getCorpInfo(this.sym)
-      console.log(this.ser)
     },
     // async getSeries (sym) {
     //   let url = `https://www.nseindia.com/api/quote-equity?symbol=${sym}`
