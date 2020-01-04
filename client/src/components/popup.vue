@@ -16,7 +16,7 @@
       <div class="modal-body">
         <div class="row">
             <div class="col-md-4 column">
-                {{corpinfos}}
+                <!-- {{corpinfos}} -->
             </div>
             <!-- corp actions -->
             <div class="col-md-4 column col-sm-offset">
@@ -67,7 +67,7 @@ export default {
       visible: false
     }
   },
-  props: ['actions', 'announces', 'corpinfos'],
+  props: ['actions', 'announces'],
   components: { loading },
   created () {
     this.$root.$on('showPop', this.showmodal)

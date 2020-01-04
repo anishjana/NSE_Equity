@@ -1,7 +1,13 @@
 const express= require('express');
+const axios = require('axios');
+
 const router = express.Router();
 const nse = require('./nse.js');
-const axios = require('axios');
+const DomParser = require('dom-parser');
+const parser = new DomParser();
+// const fetch = require('node-fetch');
+
+
 
 
 router.get("/results", (req, res, next) => {
@@ -51,13 +57,20 @@ router.post("/announce", (req, res, next) => {
       });
   });
 
-  
-  //   router.get("/actions", (req,res,next) => {
-  //     nse.actions()
-  //     .then(function (myObject) {
-  //       res.send(myObject.data.rows);
-  //     });
-  // });
+  router.post('/corpinfo', (req,res,next)=> {
+    const Symbol='TCS';
+  // console.log(Symbol)
+  nse.corpinfo(Symbol)
+      .then(response => response.data)
+      .then(html => {
+        var doc = parser.parseFromString(html, "text/html");
+        res.send(doc.rawHTML);
+      })
+      .catch(function(err) {
+        console.log("Failed to fetch page: ", err);
+      });
+
+  });
 
 
 

@@ -14,9 +14,11 @@
     "bootstrap": "^4.4.1",
     "core-js": "^3.4.3",
     "cors": "^2.8.5",
+    "dom-parser": "^0.1.6",
     "eslint-loader": "^3.0.3",
     "express": "^4.17.1",
     "jquery": "^3.4.1",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",
     "popper.js": "^1.16.0",
     "vue": "^2.6.10"

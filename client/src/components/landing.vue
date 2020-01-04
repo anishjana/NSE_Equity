@@ -95,7 +95,8 @@
     </div>
     <loading :active.sync="visible" :can-cancel="true"></loading>
     <get-results :rows="rows" @popupFromChild="handlePopup"/>
-    <pop :id="actions.id" :actions="actions" :announces="announces"/>
+    <pop :actions="actions" :announces="announces" :corpinfo="corpinfo"/>
+    <div v-html="corpinfos"></div>
   </div>
   
 </template>
@@ -108,7 +109,7 @@ import pop from './popup'
 import search from '@/services/search'
 import action from '@/services/action'
 import announce from '@/services/announce'
-// import corpinfo from '@/services/corpinfo'
+import corpinfo from '@/services/corpinfo'
 export default {
   components: {
     getResults,
@@ -127,8 +128,8 @@ export default {
       actions: {},
       announces: {},
       visible: false,
-      loaded: true
-      // corpinfos: ''
+      loaded: true,
+      corpinfos: ``
 
     }
   },
@@ -177,7 +178,8 @@ export default {
       this.sym = value
       this.getCorpActions(this.sym)
       this.getCorpAnnounce(this.sym)
-      // this.getCorpInfo(this.sym)
+      this.getCorpInfo(this.sym)
+      console.log(this.corpinfos)
     },
     async getCorpActions (sym) {
       this.$root.$emit('showPop')
@@ -192,12 +194,12 @@ export default {
       })
       this.announces = corpAnnounce.data.rows
     },
-    // async getCorpInfo (sym) {
-    //   const corpinf = await corpinfo.corpinfo({
-    //     symbol: sym
-    //   })
-    //   this.corpinfos = corpinf
-    // },
+    async getCorpInfo (sym) {
+      const corpinf = await corpinfo.corpinfo({
+        symbol: sym
+      })
+      this.corpinfos = corpinf.data
+    },
     open () {
       this.visible = true
       setTimeout(() => {
