@@ -109,6 +109,7 @@ import search from '@/services/search'
 import action from '@/services/action'
 import announce from '@/services/announce'
 import corpinfo from '@/services/corpinfo'
+import series from '@/services/series'
 export default {
   components: {
     getResults,
@@ -129,7 +130,7 @@ export default {
       visible: false,
       loaded: true,
       corpinfos: ``,
-      ser: {}
+      ser: ''
 
     }
   },
@@ -176,22 +177,20 @@ export default {
     },
     handlePopup (value) {
       this.sym = value
-      // this.getSeries(this.sym)
+      this.getSeries(this.sym)
       this.getCorpActions(this.sym)
       this.getCorpAnnounce(this.sym)
       this.getCorpInfo(this.sym)
       console.log(this.ser)
-    },
-    // async getSeries (sym) {
-    //   let url = `https://www.nseindia.com/api/quote-equity?symbol=${sym}`
-    //   axios.get(url).then(response => {
-    //     this.ser = response.data.info
-    //   }).catch(errors => {
-    //     console.log(errors)
-    //   })
-    // },
-    async getCorpActions (sym) {
       this.$root.$emit('showPop')
+    },
+    async getSeries (sym) {
+      const serData = await series.series({
+        symbol: sym
+      })
+      this.ser = serData.data
+    },
+    async getCorpActions (sym) {
       const corpActions = await action.action({
         symbol: sym
       })
@@ -205,7 +204,9 @@ export default {
     },
     async getCorpInfo (sym) {
       const corpinf = await corpinfo.corpinfo({
-        symbol: sym
+        symbol: sym,
+        serie: this.ser
+
       })
       this.corpinfos = corpinf.data
     },
@@ -215,6 +216,9 @@ export default {
         this.visible = false
       }, 500)
     }
+  },
+  watch: {
+
   },
   mounted () {
     axios

@@ -69,8 +69,10 @@ export default {
   },
   props: ['actions', 'announces', 'corpinfos'],
   components: { loading },
-  created () {
-    this.$root.$on('showPop', this.showmodal)
+  watch: {
+    corpinfo (value) {
+      this.$root.$on('showPop', this.showmodal)
+    }
   },
   methods: {
     showmodal () {

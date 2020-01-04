@@ -56,11 +56,34 @@ router.post("/announce", (req, res, next) => {
         
       });
   });
+router.post("/series", (req, res, next) => {
+  const Symbol=req.body.symbol;
+  // console.log(Symbol)
+  nse.series(Symbol)
+      .then(function (json_response) {
+        const str = JSON.stringify(json_response.data)
+        const myObject = JSON.parse(str)
+        res.send(myObject.metadata.series)
+        
+      });
+  });
+router.post("/announce", (req, res, next) => {
+  const Symbol=req.body.symbol;
+  // console.log(Symbol)
+  nse.announces(Symbol)
+      .then(function (json_response) {
+        const str = JSON.stringify(json_response.data)
+        const myObject = JSON.parse(str)
+        res.send(myObject)
+        
+      });
+  });
 
   router.post('/corpinfo', (req,res,next)=> {
     const Symbol=req.body.symbol;
+    const Series = req.body.serie;
   // console.log(Symbol)
-  nse.corpinfo(Symbol)
+  nse.corpinfo(Symbol,Series)
       .then(response => response.data)
       .then(html => {
         var doc = parser.parseFromString(html, "text/html");

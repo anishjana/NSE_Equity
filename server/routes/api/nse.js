@@ -53,8 +53,16 @@ function getListComp(Symbol,Period) {
       console.log(errors)
     })
   }
-  function corpinfo(Symbol) {
-    let url_info= `https://www1.nseindia.com/marketinfo/companyTracker/compInfo.jsp?symbol=${Symbol}&series=EQ`;
+  function corpinfo(Symbol,Series) {
+    let url_info= `https://www1.nseindia.com/marketinfo/companyTracker/compInfo.jsp?symbol=${Symbol}&series=${Series}`;
+    console.log(url_info)
+    return axios.get(url_info).catch(errors => {
+      console.log(errors)
+    })
+  }
+
+  function series(Symbol){
+    let url_info= `https://www.nseindia.com/api/quote-equity?symbol=${Symbol}`;
     console.log(url_info)
     return axios.get(url_info).catch(errors => {
       console.log(errors)
@@ -67,7 +75,8 @@ var nse = {
       getListComp: getListComp,
       actions: actions,
       announces: announces,
-      corpinfo: corpinfo
+      corpinfo: corpinfo,
+      series: series
   }
 
   module.exports = nse;
