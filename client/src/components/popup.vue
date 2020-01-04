@@ -16,6 +16,7 @@
       <div class="modal-body">
         <div class="row">
             <div class="col-md-4 column">
+              <h6> Company Information </h6>
              <div v-html="corpinfos"></div>
             </div>
             <!-- corp actions -->
@@ -83,7 +84,7 @@ export default {
       this.visible = true
       setTimeout(() => {
         this.visible = false
-      }, 800)
+      }, 1200)
     },
     reset () {
       this.actions = ''

@@ -165,7 +165,7 @@ export default {
         alert('select a period')
       } else {
         console.log(this.symbol, this.period)
-
+        this.$router.push({path: '/', query: {Symbol: this.symbol, Period: this.period}})
         const params = await search.search({
           symbol: this.symbol,
           period: this.period

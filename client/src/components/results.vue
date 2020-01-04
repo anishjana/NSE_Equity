@@ -22,8 +22,7 @@
                 <th scope="col">Industry</th>
               </tr>
             </thead>
-
-            <tbody>
+            <tbody v-if="rows.length > 0">
 <!-- eslint-disable-next-line -->
             
               <tr v-for="row in rows" :key="row.sym" class="result-row" @click="popup(row.sym)">
@@ -35,6 +34,13 @@
                 <th scope="col">{{ row.paid }}</th>
                 <th scope="col">{{ row.mlot }}</th>
                 <th scope="col">{{ row.ind }}</th>
+              </tr>
+            </tbody>
+            <tbody v-else>
+              <tr>
+                <th class="message" scope="col">
+              <h6>No result for the search</h6>
+                </th>
               </tr>
             </tbody>
           </table>
@@ -90,4 +96,5 @@ font-size: 14.5px;
 .table tr {
   line-height: 1px;
 }
+
 </style>

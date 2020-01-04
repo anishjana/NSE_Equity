@@ -6,9 +6,10 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  base: '/api/search/',
   routes: [
     {
-      path: '/api',
+      path: '/',
       name: 'homepage',
       component: landing
     }
