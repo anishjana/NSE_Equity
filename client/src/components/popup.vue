@@ -16,7 +16,7 @@
       <div class="modal-body">
         <div class="row">
             <div class="col-md-4 column">
-                <!-- {{corpinfos}} -->
+             <div v-html="corpinfos"></div>
             </div>
             <!-- corp actions -->
             <div class="col-md-4 column col-sm-offset">
@@ -67,7 +67,7 @@ export default {
       visible: false
     }
   },
-  props: ['actions', 'announces'],
+  props: ['actions', 'announces', 'corpinfos'],
   components: { loading },
   created () {
     this.$root.$on('showPop', this.showmodal)
@@ -83,10 +83,12 @@ export default {
       this.visible = true
       setTimeout(() => {
         this.visible = false
-      }, 500)
+      }, 800)
     },
     reset () {
       this.actions = ''
+      this.announces = ''
+      this.corpinfos = ''
     }
   }
 }

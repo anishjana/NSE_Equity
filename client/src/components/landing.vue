@@ -95,8 +95,7 @@
     </div>
     <loading :active.sync="visible" :can-cancel="true"></loading>
     <get-results :rows="rows" @popupFromChild="handlePopup"/>
-    <pop :actions="actions" :announces="announces" :corpinfo="corpinfo"/>
-    <div v-html="corpinfos"></div>
+    <pop :actions="actions" :announces="announces" :corpinfos="corpinfos"/>
   </div>
   
 </template>
@@ -129,7 +128,8 @@ export default {
       announces: {},
       visible: false,
       loaded: true,
-      corpinfos: ``
+      corpinfos: ``,
+      ser: {}
 
     }
   },
@@ -176,11 +176,20 @@ export default {
     },
     handlePopup (value) {
       this.sym = value
+      // this.getSeries(this.sym)
       this.getCorpActions(this.sym)
       this.getCorpAnnounce(this.sym)
       this.getCorpInfo(this.sym)
-      console.log(this.corpinfos)
+      console.log(this.ser)
     },
+    // async getSeries (sym) {
+    //   let url = `https://www.nseindia.com/api/quote-equity?symbol=${sym}`
+    //   axios.get(url).then(response => {
+    //     this.ser = response.data.info
+    //   }).catch(errors => {
+    //     console.log(errors)
+    //   })
+    // },
     async getCorpActions (sym) {
       this.$root.$emit('showPop')
       const corpActions = await action.action({

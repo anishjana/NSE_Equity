@@ -58,7 +58,7 @@ router.post("/announce", (req, res, next) => {
   });
 
   router.post('/corpinfo', (req,res,next)=> {
-    const Symbol='TCS';
+    const Symbol=req.body.symbol;
   // console.log(Symbol)
   nse.corpinfo(Symbol)
       .then(response => response.data)
