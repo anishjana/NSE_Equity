@@ -12,16 +12,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const posts = require('./routes/api/get.js');
 app.use('/', posts );
 
-// app.post('/api', (req,res) => {
-//     const Period_temp = req.body.period;
-//     const Period = Period_temp.replace(/ /g,"&");
-
-//     res.send({
-//         message: `${req.body.symbol} - ${req.body.period} `,
-//         url: `https://www1.nseindia.com/corporates/listDir/getListDirectEQ.jsp?Symbol=${req.body.symbol}&Industry=&Period=${Period}&symbol=${req.body.symbol}&listingPeriod=${Period}&segment=EQUITIES`
-
-//     })
-// });
+// Handle production
+if (process.env.NODE_ENV === 'production') {
+    // Static folder
+    app.use(express.static(__dirname + '/public/'));
+  
+    // Handle SPA
+    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+  }
 
 // server start config
 const port = process.env.PORT || 5000;

@@ -1,11 +1,17 @@
+/* eslint-disable no-unused-vars */
 // eslint-disable-next-line
 // var webpack = require('webpack');
+const path = require('path')
 
 module.exports = {
-  publicPath: '/api/',
-  chainWebpack: config => {
-    config.module.rule('eslint').use('eslint-loader').options({
-      fix: true
-    })
+  outputDir: path.resolve(__dirname, '../server/public'),
+  assetsDir: '../../static/SPA',
+  publicPath: '/api/search',
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000'
+      }
+    }
   }
 }
